@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: Users by OpenAPI
+  description: Project created to show how to use OpenAPI
+  version: 1.0.1
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /users:
+    get:
+      operationId: getAllUsers
+      responses:
+        200:
+          description: "Return All books"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+components:
+  schemas:
+    SwaggerUser:
+      type: object
+      required:
+        - _id
+        - username
+        - password
+      properties:
+        _id:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+
+  

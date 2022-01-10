@@ -18,4 +18,14 @@ public class UsersActions {
         return usersRepository.findAll();
     }
 
+    public User getUser(String username) {
+        return usersRepository.getUserByUsername(username);
+    }
+
+    public void addUser(User user) {
+        if (user != null) {
+            usersRepository.save(user);
+        }
+    }
+
 }
