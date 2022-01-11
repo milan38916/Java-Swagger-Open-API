@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 public class User {
 
     @MongoId
-    @NotNull
     private String _id;
     @Size(min = 3, max = 25)
     private String username;

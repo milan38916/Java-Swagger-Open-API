@@ -36,14 +36,33 @@ paths:
   /users/addNewUser:
     post:
       operationId: addOneUser
-      parameters:
-        - in: query
-          name: user
-          schema:
-            $ref: '#/components/schemas/User'
+      requestBody:
+        description: User data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwaggerUser'
       responses:
         200:
           description: "Add new user"
+          content:
+            application/json:
+              schema:
+                type: string
+  /users/updateUser:
+    put:
+      operationId: updateUser
+      requestBody:
+        description: User data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwaggerUser'
+      responses:
+        200:
+          description: "Update existing user"
           content:
             application/json:
               schema:

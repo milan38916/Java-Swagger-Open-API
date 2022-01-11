@@ -1,6 +1,7 @@
 package com.backend.java_swagger_open_api.controller;
 
 import com.backend.java_swagger_open_api.api.UsersApi;
+import com.backend.java_swagger_open_api.models.SwaggerUser;
 import com.backend.java_swagger_open_api.models.User;
 import com.backend.java_swagger_open_api.repository.UsersActions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,16 @@ public class UsersController implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<String> addOneUser(User user) {
+    public ResponseEntity<String> updateUser(SwaggerUser updatedUser) {
+        User user = new User(updatedUser.getId(), updatedUser.getUsername(), updatedUser.getPassword());
+        usersActions.addUser(user);
+        return new ResponseEntity<>("User with name " + updatedUser.getUsername() + " was updated.", HttpStatus.OK);
+    }
+
+
+    @Override
+    public ResponseEntity<String> addOneUser(SwaggerUser newUser) {
+            User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword());
             usersActions.addUser(user);
             return new ResponseEntity<>("User was added successfully", HttpStatus.OK);
     }

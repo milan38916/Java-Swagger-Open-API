@@ -1,5 +1,6 @@
 package com.backend.java_swagger_open_api.repository;
 
+import com.backend.java_swagger_open_api.models.SwaggerUser;
 import com.backend.java_swagger_open_api.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -23,9 +24,7 @@ public class UsersActions {
     }
 
     public void addUser(User user) {
-        if (user != null) {
-            usersRepository.save(user);
-        }
+        usersRepository.save(user);
     }
 
 }
