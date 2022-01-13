@@ -1,6 +1,6 @@
 package com.backend.java_swagger_open_api.controller;
 
-import com.backend.java_swagger_open_api.api.UsersApi;
+import com.backend.java_swagger_open_api.controller.UsersApi;
 import com.backend.java_swagger_open_api.models.SwaggerUser;
 import com.backend.java_swagger_open_api.models.User;
 import com.backend.java_swagger_open_api.repository.UsersActions;

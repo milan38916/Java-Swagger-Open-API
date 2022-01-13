@@ -11,13 +11,25 @@ paths:
       operationId: getAllUsers
       responses:
         200:
-          description: "Return All books"
+          description: "Return All users"
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
+  /books:
+    get:
+      operationId: getAllBooks
+      responses:
+        200:
+          description: "Return All books"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
   /users/user/{username}:
     get:
       operationId: getOneUser
