@@ -30,6 +30,38 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+  /books/{title}:
+    get:
+      operationId: getOneBookByTitle
+      parameters:
+        - in: path
+          name: title
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Return All books"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Book'
+  /books/addNewBook:
+    post:
+      operationId: addOneBook
+      requestBody:
+        description: User book
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwaggerBook'
+      responses:
+        200:
+          description: "Add new user"
+          content:
+            application/json:
+              schema:
+                type: string
   /users/user/{username}:
     get:
       operationId: getOneUser
@@ -84,6 +116,22 @@ paths:
 
 components:
   schemas:
+    SwaggerBook:
+      type: object
+      required:
+        - id
+        - title
+        - author
+        - year
+      properties:
+        _id:
+          type: number
+        title:
+          type: string
+        author:
+          type: string
+        year:
+          type: number
     SwaggerUser:
       type: object
       required:
@@ -97,5 +145,8 @@ components:
           type: string
         password:
           type: string
+
+
+
 
   

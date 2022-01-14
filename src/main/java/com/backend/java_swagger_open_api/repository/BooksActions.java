@@ -17,4 +17,12 @@ public class BooksActions {
     public List<Book> getAllBooks() {
         return booksInterface.findAll();
     }
+
+    public void addOneBook(Book book) {
+        booksInterface.save(book);
+    }
+
+    public Book getOneBook(String title) {
+        return booksInterface.findByTitle(title);
+    }
 }
