@@ -1,8 +1,8 @@
 package com.backend.java_swagger_open_api.controller;
 
-import com.backend.java_swagger_open_api.controller.UsersApi;
 import com.backend.java_swagger_open_api.models.SwaggerUser;
 import com.backend.java_swagger_open_api.models.User;
+import com.backend.java_swagger_open_api.models.UsernameObject;
 import com.backend.java_swagger_open_api.repository.UsersActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,11 @@ public class UsersController implements UsersApi {
 
     @Override
     public ResponseEntity<User> getOneUser(String username) {
-        return new ResponseEntity<>(usersActions.getUser(username), HttpStatus.OK);
+        if (usersActions.getUser(username) != null) {
+            return new ResponseEntity<>(usersActions.getUser(username), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @Override
@@ -35,11 +39,23 @@ public class UsersController implements UsersApi {
         return new ResponseEntity<>("User with name " + updatedUser.getUsername() + " was updated.", HttpStatus.OK);
     }
 
-
     @Override
     public ResponseEntity<String> addOneUser(SwaggerUser newUser) {
-            User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword());
+        User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword());
+        if (usersActions.getUser(newUser.getUsername()).getUsername().equals(newUser.getUsername())) {
+            return new ResponseEntity<>("User with name " + newUser.getUsername() + " is already in system. Use other name.", HttpStatus.CONFLICT);
+        } else {
             usersActions.addUser(user);
-            return new ResponseEntity<>("User was added successfully", HttpStatus.OK);
+            return new ResponseEntity<>("User with name " + newUser.getUsername() + " was added successfully", HttpStatus.OK);
+        }
     }
+
+    @Override
+    public ResponseEntity<User> changeUserName(UsernameObject body) {
+        User user = usersActions.getUser(body.getOldusername());
+        user.setUsername(body.getNewusername());
+        usersActions.addUser(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
 }

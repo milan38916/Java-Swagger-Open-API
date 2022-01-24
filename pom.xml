@@ -117,6 +117,9 @@
                                 <interfaceOnly>
                                     true
                                 </interfaceOnly>
+                                <importMappings>
+                                    <importMapping>User=com.backend.java_swagger_open_api.models.User</importMapping>
+                                </importMappings>
                             </configOptions>
                         </configuration>
                     </execution>
