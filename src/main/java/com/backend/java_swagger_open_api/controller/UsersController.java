@@ -1,9 +1,11 @@
 package com.backend.java_swagger_open_api.controller;
 
+import com.backend.java_swagger_open_api.models.PasswordObject;
 import com.backend.java_swagger_open_api.models.SwaggerUser;
 import com.backend.java_swagger_open_api.models.User;
 import com.backend.java_swagger_open_api.models.UsernameObject;
 import com.backend.java_swagger_open_api.repository.UsersActions;
+import com.mysql.cj.exceptions.StreamingNotifiable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,12 +44,20 @@ public class UsersController implements UsersApi {
     @Override
     public ResponseEntity<String> addOneUser(SwaggerUser newUser) {
         User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword());
-        if (usersActions.getUser(newUser.getUsername()).getUsername().equals(newUser.getUsername())) {
+        if (usersActions.getUser(newUser.getUsername()) != null) {
             return new ResponseEntity<>("User with name " + newUser.getUsername() + " is already in system. Use other name.", HttpStatus.CONFLICT);
         } else {
             usersActions.addUser(user);
             return new ResponseEntity<>("User with name " + newUser.getUsername() + " was added successfully", HttpStatus.OK);
         }
+    }
+
+    @Override
+    public ResponseEntity<String> changePassword(PasswordObject body) {
+        User user = usersActions.getUser(body.getUsername());
+        user.setPassword(body.getNewpassword());
+        usersActions.addUser(user);
+        return new ResponseEntity<>("Password was successfully changed.", HttpStatus.OK);
     }
 
     @Override

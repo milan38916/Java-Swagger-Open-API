@@ -125,6 +125,29 @@ paths:
             application/json:
               schema:
                 type: string
+  /users/user/changePassword:
+    post:
+      operationId: changePassword
+      requestBody:
+        description: New password
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordObject'
+      responses:
+        200:
+          description: "Return user by name after change password"
+          content:
+            application/json:
+              schema:
+                type: string
+        409:
+          description: "Conflict of passwords"
+          content:
+            application/json:
+              schema:
+                type: string
   /users/updateUser:
     put:
       operationId: updateUser
@@ -185,6 +208,16 @@ components:
         oldusername:
           type: string
         newusername:
+          type: string
+    PasswordObject:
+      type: object
+      required:
+        - username
+        - newpassword
+      properties:
+        username:
+          type: string
+        newpassword:
           type: string
 
 
