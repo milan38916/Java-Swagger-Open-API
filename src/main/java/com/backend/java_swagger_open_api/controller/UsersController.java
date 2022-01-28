@@ -1,9 +1,6 @@
 package com.backend.java_swagger_open_api.controller;
 
-import com.backend.java_swagger_open_api.models.PasswordObject;
-import com.backend.java_swagger_open_api.models.SwaggerUser;
-import com.backend.java_swagger_open_api.models.User;
-import com.backend.java_swagger_open_api.models.UsernameObject;
+import com.backend.java_swagger_open_api.models.*;
 import com.backend.java_swagger_open_api.repository.UsersActions;
 import com.mysql.cj.exceptions.StreamingNotifiable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +26,17 @@ public class UsersController implements UsersApi {
     public ResponseEntity<User> getOneUser(String username) {
         if (usersActions.getUser(username) != null) {
             return new ResponseEntity<>(usersActions.getUser(username), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @Override
+    public ResponseEntity<User> login(LoginUser body) {
+        System.out.println(body.getPassword() + " " + body.getUsername());
+        if (usersActions.getUserByUsernameAndPassword(body.getUsername(), body.getPassword()) != null) {
+            return new ResponseEntity<>(usersActions.getUserByUsernameAndPassword(body.getUsername(), body.getPassword()), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

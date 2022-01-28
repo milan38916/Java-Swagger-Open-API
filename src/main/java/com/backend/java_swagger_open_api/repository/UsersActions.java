@@ -26,4 +26,9 @@ public class UsersActions {
         usersRepository.save(user);
     }
 
+    public User getUserByUsernameAndPassword(String username, String password) {
+        return usersRepository.getUserByUsernameAndPassword(username, password);
+    }
+
+
 }

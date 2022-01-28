@@ -79,6 +79,25 @@ paths:
                 $ref: '#/components/schemas/User'
         204:
           description: "User was not found"
+  /users/login:
+    post:
+      operationId: login
+      requestBody:
+        description: User object (name, password)
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+      responses:
+        200:
+          description: "Return user by name and password"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        204:
+          description: "User was not found"
   /users/addNewUser:
     post:
       operationId: addOneUser
@@ -195,6 +214,16 @@ components:
       properties:
         _id:
           type: string
+        username:
+          type: string
+        password:
+          type: string
+    LoginUser:
+      type: object
+      required:
+        - username
+        - password
+      properties:
         username:
           type: string
         password:
