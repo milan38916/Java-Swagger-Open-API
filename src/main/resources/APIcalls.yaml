@@ -196,6 +196,7 @@ components:
         - title
         - author
         - year
+        - price
       properties:
         _id:
           type: number
@@ -204,6 +205,8 @@ components:
         author:
           type: string
         year:
+          type: number
+        price:
           type: number
     SwaggerUser:
       type: object

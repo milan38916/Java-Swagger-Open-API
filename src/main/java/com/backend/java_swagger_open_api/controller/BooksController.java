@@ -22,7 +22,7 @@ public class BooksController implements BooksApi {
 
     @Override
     public ResponseEntity<String> addOneBook(SwaggerBook body) {
-        Book book = new Book(new BigDecimal(String.valueOf(body.getId())).intValue(), body.getAuthor(), body.getTitle(), new BigDecimal(String.valueOf(body.getYear())).intValue());
+        Book book = new Book(new BigDecimal(String.valueOf(body.getId())).intValue(), body.getAuthor(), body.getTitle(), new BigDecimal(String.valueOf(body.getYear())).intValue(), new BigDecimal(String.valueOf(body.getPrice())).intValue());
         booksActions.addOneBook(book);
         return new ResponseEntity<>("Book " + body.getTitle() + " was added to database.", HttpStatus.OK);
     }
