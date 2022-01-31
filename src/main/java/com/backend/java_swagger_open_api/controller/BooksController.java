@@ -19,7 +19,6 @@ public class BooksController implements BooksApi {
     @Autowired
     BooksActions booksActions;
 
-
     @Override
     public ResponseEntity<String> addOneBook(SwaggerBook body) {
         Book book = new Book(new BigDecimal(String.valueOf(body.getId())).intValue(), body.getAuthor(), body.getTitle(), new BigDecimal(String.valueOf(body.getYear())).intValue(), new BigDecimal(String.valueOf(body.getPrice())).intValue());

@@ -2,13 +2,12 @@ package com.backend.java_swagger_open_api.controller;
 
 import com.backend.java_swagger_open_api.models.*;
 import com.backend.java_swagger_open_api.repository.UsersActions;
-import com.mysql.cj.exceptions.StreamingNotifiable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -43,15 +42,38 @@ public class UsersController implements UsersApi {
     }
 
     @Override
+    public ResponseEntity<String> setNewAddress(SwaggerAddress body) {
+        Optional<User> user = usersActions.getUserByID(body.getId());
+
+        if (user.isPresent()) {
+            user.get().setAddress(new Address(body.getCity(), body.getStreet(), body.getPostalCode()));
+            usersActions.addUser(user.get());
+            return new ResponseEntity<>("Address was successfuly added to user with name " + user.get().getUsername() + ".", HttpStatus.OK);
+        }   else {
+            return new ResponseEntity<>("Some error", HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @Override
+    public ResponseEntity<String> setNewOrder(UserOrder body) {
+        System.out.println(body.getId() + "\n" +
+                body.getPrice() + " " + body.getOrderUser().getName());
+        return new ResponseEntity<>("Succesfully", HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<String> updateUser(SwaggerUser updatedUser) {
-        User user = new User(updatedUser.getId(), updatedUser.getUsername(), updatedUser.getPassword());
+        Order[] orders = {};
+        User user = new User(updatedUser.getId(), updatedUser.getUsername(), updatedUser.getPassword(), new Address(), orders);
         usersActions.addUser(user);
         return new ResponseEntity<>("User with name " + updatedUser.getUsername() + " was updated.", HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<String> addOneUser(SwaggerUser newUser) {
-        User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword());
+        Order[] orders = {};
+        User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword(), new Address(), orders);
         if (usersActions.getUser(newUser.getUsername()) != null) {
             return new ResponseEntity<>("User with name " + newUser.getUsername() + " is already in system. Use other name.", HttpStatus.CONFLICT);
         } else {

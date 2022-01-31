@@ -20,13 +20,17 @@ public class User {
     private String username;
     @Size(min = 6, max = 50)
     private String password;
+    private Address address;
+    private Order[] orders;
 
     public User() {
     }
 
-    public User(String _id, String username, String password) {
+    public User(String _id, String username, String password, Address address, Order[] orders) {
         this._id = _id;
         this.username = username;
         this.password = password;
+        this.address = address;
+        this.orders = orders;
     }
 }

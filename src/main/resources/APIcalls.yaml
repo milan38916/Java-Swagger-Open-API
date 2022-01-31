@@ -184,6 +184,40 @@ paths:
             application/json:
               schema:
                 type: string
+  /users/user/order:
+    post:
+      operationId: setNewOrder
+      requestBody:
+        description: new order from user
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserOrder'
+      responses:
+        200:
+          description: "Update existing user with new order"
+          content:
+            application/json:
+              schema:
+                type: string
+  /users/user/addNewAddress:
+    post:
+      operationId: setNewAddress
+      requestBody:
+        description: new address for user
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwaggerAddress'
+      responses:
+        200:
+          description: "Update existing user"
+          content:
+            application/json:
+              schema:
+                type: string
 
 
 
@@ -251,6 +285,103 @@ components:
           type: string
         newpassword:
           type: string
+    SwaggerAddress:
+      type: object
+      required:
+        - id
+        - city
+        - street
+        - postalCode
+      properties:
+        id:
+          type: string
+        city:
+          type: string
+        street:
+          type: string
+        postalCode:
+          type: string
+    UserOrder:
+      type: object
+      required:
+        - id
+        - orderUser
+        - orderAddress
+        - orderDate
+        - numOfItems
+        - orderID
+        - price
+        - orderBookItems
+      properties:
+        id:
+          type: string
+        orderUser:
+          $ref: '#/components/schemas/SwaggerOrderUser'
+        orderAddress:
+          $ref: '#/components/schemas/OrderAddress'
+        orderDate:
+          type: string
+        numOfItems:
+          type: number
+        orderID:
+          type: string
+        price:
+          type: number
+        orderBookItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/SwaggerOrderBookItem'
+    SwaggerOrderUser:
+      type: object
+      required:
+        - name
+        - surname
+        - email
+        - phoneNumber
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+    OrderAddress:
+      type: object
+      required:
+        - city
+        - street
+        - postalCode
+      properties:
+        city:
+          type: string
+        street:
+          type: string
+        postalCode:
+          type: string
+    SwaggerOrderBookItem:
+      type: object
+      required:
+        - id
+        - title
+        - author
+        - year
+        - price
+        - count
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        author:
+          type: string
+        year:
+          type: number
+        price:
+          type: number
+        count:
+           type: number
 
 
 

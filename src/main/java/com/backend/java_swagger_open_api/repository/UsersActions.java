@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @EnableMongoRepositories
@@ -21,6 +22,11 @@ public class UsersActions {
     public User getUser(String username) {
         return usersRepository.getUserByUsername(username);
     }
+
+    public Optional<User> getUserByID(String uid) {
+        return usersRepository.findById(uid);
+    }
+
 
     public void addUser(User user) {
         usersRepository.save(user);
