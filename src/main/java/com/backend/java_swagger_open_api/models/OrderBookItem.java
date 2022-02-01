@@ -7,17 +7,17 @@ import lombok.Setter;
 @Setter
 public class OrderBookItem {
 
-    private String id;
+    private int id;
     private String title;
     private String author;
-    private String year;
-    private String price;
-    private String count;
+    private int year;
+    private int price;
+    private int count;
 
     public OrderBookItem() {
     }
 
-    public OrderBookItem(String id, String title, String author, String year, String price, String count) {
+    public OrderBookItem(int id, String title, String author, int year, int price, int count) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -25,6 +25,4 @@ public class OrderBookItem {
         this.price = price;
         this.count = count;
     }
-
-
 }

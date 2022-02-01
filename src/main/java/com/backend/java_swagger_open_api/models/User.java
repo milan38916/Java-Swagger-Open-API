@@ -8,9 +8,9 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter
-@Setter
 @Document("jwt_users")
 public class User {
 
@@ -21,16 +21,55 @@ public class User {
     @Size(min = 6, max = 50)
     private String password;
     private Address address;
-    private Order[] orders;
+    private List<Order> orders = new ArrayList<Order>();
 
     public User() {
     }
 
-    public User(String _id, String username, String password, Address address, Order[] orders) {
+    public User(String _id, String username, String password, Address address) {
         this._id = _id;
         this.username = username;
         this.password = password;
         this.address = address;
-        this.orders = orders;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Order order) {
+        this.orders.add(order);
     }
 }

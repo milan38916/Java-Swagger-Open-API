@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +31,17 @@ public class UsersController implements UsersApi {
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @Override
+    public ResponseEntity<List<Order>> getUserOrders(String userID) {
+        Optional<User> user = usersActions.getUserByID(userID);
+
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get().getOrders(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ArrayList<Order>(), HttpStatus.NOT_FOUND);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -57,15 +71,22 @@ public class UsersController implements UsersApi {
 
     @Override
     public ResponseEntity<String> setNewOrder(UserOrder body) {
-        System.out.println(body.getId() + "\n" +
-                body.getPrice() + " " + body.getOrderUser().getName());
-        return new ResponseEntity<>("Succesfully", HttpStatus.OK);
+        Optional<User> user = usersActions.getUserByID(body.getId());
+        if (user.isPresent()) {
+            OrderUser orderUser = new OrderUser(body.getOrderUser().getName(), body.getOrderUser().getSurname(), body.getOrderUser().getEmail(), body.getOrderUser().getPhoneNumber());
+            Address address = new Address(body.getOrderAddress().getCity(),body.getOrderAddress().getStreet(),body.getOrderAddress().getPostalCode());
+            user.get().setOrders(new Order(orderUser, address, body.getOrderDate(), body.getNumOfItems().toString(), body.getOrderID(), body.getPrice().toString(), body.getOrderBookItems()));
+            usersActions.addUser(user.get());
+            return new ResponseEntity<>("Succesfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Error", HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
     public ResponseEntity<String> updateUser(SwaggerUser updatedUser) {
         Order[] orders = {};
-        User user = new User(updatedUser.getId(), updatedUser.getUsername(), updatedUser.getPassword(), new Address(), orders);
+        User user = new User(updatedUser.getId(), updatedUser.getUsername(), updatedUser.getPassword(), new Address());
         usersActions.addUser(user);
         return new ResponseEntity<>("User with name " + updatedUser.getUsername() + " was updated.", HttpStatus.OK);
     }
@@ -73,7 +94,7 @@ public class UsersController implements UsersApi {
     @Override
     public ResponseEntity<String> addOneUser(SwaggerUser newUser) {
         Order[] orders = {};
-        User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword(), new Address(), orders);
+        User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword(), new Address());
         if (usersActions.getUser(newUser.getUsername()) != null) {
             return new ResponseEntity<>("User with name " + newUser.getUsername() + " is already in system. Use other name.", HttpStatus.CONFLICT);
         } else {
