@@ -93,7 +93,7 @@ public class UsersController implements UsersApi {
     @Override
     public ResponseEntity<String> addOneUser(SwaggerUser newUser) {
         Order[] orders = {};
-        User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword(), new Address());
+        User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword(), null);
         if (usersActions.getUser(newUser.getUsername()) != null) {
             return new ResponseEntity<>("User with name " + newUser.getUsername() + " is already in system. Use other name.", HttpStatus.CONFLICT);
         } else {
