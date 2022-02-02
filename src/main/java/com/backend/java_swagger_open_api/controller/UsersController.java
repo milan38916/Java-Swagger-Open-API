@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -117,6 +116,17 @@ public class UsersController implements UsersApi {
         user.setUsername(body.getNewusername());
         usersActions.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteUserAddress(String userID) {
+        Optional<User> user = usersActions.getUserByID(userID);
+        if (user.isPresent()) {
+            user.get().setAddress(null);
+            usersActions.addUser(user.get());
+            return new ResponseEntity<>("Address was successfully deleted.", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Error.", HttpStatus.BAD_REQUEST);
     }
 
 }

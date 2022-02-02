@@ -235,6 +235,21 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Order'
+  /users/{userID}/deleteaddress:
+    post:
+      operationId: deleteUserAddress
+      parameters:
+        - in: path
+          name: userID
+          schema:
+            type: string
+      responses:
+        200:
+          description: "delete actual address of user"
+          content:
+            application/json:
+              schema:
+                type: string
 
 
 
