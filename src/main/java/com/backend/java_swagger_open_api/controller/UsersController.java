@@ -113,9 +113,14 @@ public class UsersController implements UsersApi {
     @Override
     public ResponseEntity<User> changeUserName(UsernameObject body) {
         User user = usersActions.getUser(body.getOldusername());
-        user.setUsername(body.getNewusername());
-        usersActions.addUser(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        if (usersActions.getUser(body.getNewusername()) != null && usersActions.getUser(body.getNewusername()).getUsername().equals(body.getNewusername())) {
+            return new ResponseEntity<>(user, HttpStatus.CONFLICT);
+        } else {
+            user.setUsername(body.getNewusername());
+            usersActions.addUser(user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+
     }
 
     @Override
