@@ -105,9 +105,14 @@ public class UsersController implements UsersApi {
     @Override
     public ResponseEntity<String> changePassword(PasswordObject body) {
         User user = usersActions.getUser(body.getUsername());
-        user.setPassword(body.getNewpassword());
-        usersActions.addUser(user);
-        return new ResponseEntity<>("Password was successfully changed.", HttpStatus.OK);
+        if (user.getPassword().equals(body.getOldpassword())) {
+            user.setPassword(body.getNewpassword());
+            usersActions.addUser(user);
+            return new ResponseEntity<>("Password was successfully changed.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Wrong old password, try it again.", HttpStatus.NO_CONTENT);
+        }
+
     }
 
     @Override

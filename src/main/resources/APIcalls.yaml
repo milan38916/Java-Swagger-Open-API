@@ -311,11 +311,14 @@ components:
       type: object
       required:
         - username
+        - oldpassword
         - newpassword
       properties:
         username:
           type: string
         newpassword:
+          type: string
+        oldpassword:
           type: string
     SwaggerAddress:
       type: object
