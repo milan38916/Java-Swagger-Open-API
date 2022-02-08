@@ -1,6 +1,7 @@
 package com.backend.java_swagger_open_api.controller;
 
 import com.backend.java_swagger_open_api.models.*;
+import com.backend.java_swagger_open_api.models.Error;
 import com.backend.java_swagger_open_api.repository.UsersActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,14 @@ public class UsersController implements UsersApi {
 
     @Autowired
     UsersActions usersActions;
+
+
+    @RequestMapping(value = "/")
+    public String index() {
+        System.out.println("swagger-ui.html");
+        return "swagger-ui.html";
+    }
+
 
     @Override
     public ResponseEntity<List<User>> getAllUsers() {
@@ -43,16 +52,15 @@ public class UsersController implements UsersApi {
         return new ResponseEntity<>(new ArrayList<Order>(), HttpStatus.NOT_FOUND);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @Override
     public ResponseEntity<User> login(LoginUser body) {
-        System.out.println(body.getPassword() + " " + body.getUsername());
         if (usersActions.getUserByUsernameAndPassword(body.getUsername(), body.getPassword()) != null) {
             return new ResponseEntity<>(usersActions.getUserByUsernameAndPassword(body.getUsername(), body.getPassword()), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("", HttpStatus.CONFLICT);
         }
     }
+
 
     @Override
     public ResponseEntity<String> setNewAddress(SwaggerAddress body) {
@@ -84,16 +92,14 @@ public class UsersController implements UsersApi {
 
     @Override
     public ResponseEntity<String> updateUser(SwaggerUser updatedUser) {
-        Order[] orders = {};
-        User user = new User(updatedUser.getId(), updatedUser.getUsername(), updatedUser.getPassword(), new Address());
+        User user = new User(updatedUser.getId(), updatedUser.getUsername(), updatedUser.getPassword(), new Address(), updatedUser.getEmail());
         usersActions.addUser(user);
         return new ResponseEntity<>("User with name " + updatedUser.getUsername() + " was updated.", HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<String> addOneUser(SwaggerUser newUser) {
-        Order[] orders = {};
-        User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword(), null);
+        User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword(), null, newUser.getEmail());
         if (usersActions.getUser(newUser.getUsername()) != null) {
             return new ResponseEntity<>("User with name " + newUser.getUsername() + " is already in system. Use other name.", HttpStatus.CONFLICT);
         } else {

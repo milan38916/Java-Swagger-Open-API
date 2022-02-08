@@ -22,15 +22,17 @@ public class User {
     private String password;
     private Address address;
     private List<Order> orders = new ArrayList<Order>();
+    private String email;
 
     public User() {
     }
 
-    public User(String _id, String username, String password, Address address) {
+    public User(String _id, String username, String password, Address address, String email) {
         this._id = _id;
         this.username = username;
         this.password = password;
         this.address = address;
+        this.email = email;
     }
 
     public String get_id() {
@@ -71,5 +73,17 @@ public class User {
 
     public void setOrders(Order order) {
         this.orders.add(order);
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
