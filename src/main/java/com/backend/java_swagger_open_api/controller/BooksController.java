@@ -2,8 +2,7 @@ package com.backend.java_swagger_open_api.controller;
 
 import com.backend.java_swagger_open_api.models.Book;
 import com.backend.java_swagger_open_api.models.SwaggerBook;
-import com.backend.java_swagger_open_api.repository.BooksActions;
-import com.backend.java_swagger_open_api.repository.BooksActionsMongoDB;
+import com.backend.java_swagger_open_api.books.BooksActionsMongoDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

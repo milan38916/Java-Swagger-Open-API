@@ -1,8 +1,7 @@
 package com.backend.java_swagger_open_api.controller;
 
 import com.backend.java_swagger_open_api.models.*;
-import com.backend.java_swagger_open_api.models.Error;
-import com.backend.java_swagger_open_api.repository.UsersActions;
+import com.backend.java_swagger_open_api.user.UsersActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +56,7 @@ public class UsersController implements UsersApi {
         if (usersActions.getUserByUsernameAndPassword(body.getUsername(), body.getPassword()) != null) {
             return new ResponseEntity<>(usersActions.getUserByUsernameAndPassword(body.getUsername(), body.getPassword()), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 

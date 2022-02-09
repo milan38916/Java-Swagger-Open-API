@@ -90,12 +90,6 @@ paths:
             schema:
               $ref: '#/components/schemas/LoginUser'
       responses:
-        204:
-          description: "User was not found"
-          content:
-            application/json:
-              schema:
-                type: string
         200:
           description: "Return user by name and password"
           content:

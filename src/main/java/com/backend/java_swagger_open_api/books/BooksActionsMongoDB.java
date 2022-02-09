@@ -1,4 +1,4 @@
-package com.backend.java_swagger_open_api.repository;
+package com.backend.java_swagger_open_api.books;
 
 import com.backend.java_swagger_open_api.models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.List;
 public class BooksActionsMongoDB {
 
     @Autowired
-    BooksInterfaceMongoDB books;
+    BooksRepositoryMongoDB books;
 
     public List<Book> getAllBooks() {
         return books.findAll();

@@ -3,7 +3,6 @@ package com.backend.java_swagger_open_api.models;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import javax.persistence.*;
 
 //@Entity
 //@Table(name = "MyBooks")
@@ -14,7 +13,7 @@ public class Book {
         //@GeneratedValue
         //@Column(name = "id", nullable = false)
         @MongoId
-        private int id;
+        private int _id;
         //@Column(name = "title", nullable = false)
         private String title;
         //@Column(name = "author", nullable = false)
@@ -27,8 +26,8 @@ public class Book {
         public Book() {
         }
 
-        public Book(int id, String title, String author, int year, int price) {
-                this.id = id;
+        public Book(int _id, String title, String author, int year, int price) {
+                this._id = _id;
                 this.title = title;
                 this.author = author;
                 this.year = year;
@@ -36,11 +35,11 @@ public class Book {
         }
 
         public int getId() {
-                return id;
+                return _id;
         }
 
-        public void setId(int id) {
-                this.id = id;
+        public void setId(int _id) {
+                this._id = _id;
         }
 
         public String getTitle() {

@@ -1,4 +1,4 @@
-package com.backend.java_swagger_open_api.repository;
+/*package com.backend.java_swagger_open_api.oldBooksRepository;
 
 import com.backend.java_swagger_open_api.models.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,3 +12,4 @@ public interface BooksInterface extends JpaRepository<Book, Integer> {
     Book findByTitle(String title);
 
 }
+*/

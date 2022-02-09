@@ -1,4 +1,4 @@
-package com.backend.java_swagger_open_api.repository;
+package com.backend.java_swagger_open_api.user;
 
 import com.backend.java_swagger_open_api.models.User;
 import org.springframework.beans.factory.annotation.Autowired;

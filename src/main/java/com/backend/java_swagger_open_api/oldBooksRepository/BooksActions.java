@@ -1,4 +1,4 @@
-package com.backend.java_swagger_open_api.repository;
+/*package com.backend.java_swagger_open_api.oldBooksRepository;
 
 import com.backend.java_swagger_open_api.models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ public class BooksActions {
 
     @Autowired
     BooksInterface booksInterface;
-
     public List<Book> getAllBooks() {
         return booksInterface.findAll();
     }
@@ -26,3 +25,4 @@ public class BooksActions {
         return booksInterface.findByTitle(title);
     }
 }
+*/

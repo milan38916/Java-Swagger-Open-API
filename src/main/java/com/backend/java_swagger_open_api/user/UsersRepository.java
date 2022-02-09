@@ -1,6 +1,5 @@
-package com.backend.java_swagger_open_api.repository;
+package com.backend.java_swagger_open_api.user;
 
-import com.backend.java_swagger_open_api.models.SwaggerUser;
 import com.backend.java_swagger_open_api.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;

@@ -1,12 +1,8 @@
 package com.backend.java_swagger_open_api.models;
 
-import lombok.Getter;
-import lombok.Setter;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
