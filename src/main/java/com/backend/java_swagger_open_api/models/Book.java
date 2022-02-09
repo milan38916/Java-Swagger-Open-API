@@ -1,22 +1,27 @@
 package com.backend.java_swagger_open_api.models;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
+
 import javax.persistence.*;
 
-@Entity
-@Table(name = "MyBooks")
+//@Entity
+//@Table(name = "MyBooks")
+@Document("books")
 public class Book {
 
-        @Id
-        @GeneratedValue
-        @Column(name = "id", nullable = false)
+        //@Id
+        //@GeneratedValue
+        //@Column(name = "id", nullable = false)
+        @MongoId
         private int id;
-        @Column(name = "title", nullable = false)
+        //@Column(name = "title", nullable = false)
         private String title;
-        @Column(name = "author", nullable = false)
+        //@Column(name = "author", nullable = false)
         private String author;
-        @Column(name = "year", nullable = false)
+        //@Column(name = "year", nullable = false)
         private int year;
-        @Column(name = "price", nullable = false)
+        //@Column(name = "price", nullable = false)
         private int price;
 
         public Book() {

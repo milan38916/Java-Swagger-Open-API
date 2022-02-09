@@ -57,7 +57,7 @@ public class UsersController implements UsersApi {
         if (usersActions.getUserByUsernameAndPassword(body.getUsername(), body.getPassword()) != null) {
             return new ResponseEntity<>(usersActions.getUserByUsernameAndPassword(body.getUsername(), body.getPassword()), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 

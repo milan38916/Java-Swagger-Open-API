@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document("jwt_users")
+@Document("users")
 public class User {
 
     @MongoId

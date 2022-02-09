@@ -102,6 +102,7 @@
                         <configuration>
                             <inputSpec>
                                 ${project.basedir}/src/main/resources/APIcalls.yaml
+                                <!--${project.basedir}/src/main/resources/APIcalls.json-->
                             </inputSpec>
                             <language>
                                 spring
