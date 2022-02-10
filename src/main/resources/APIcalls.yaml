@@ -142,6 +142,29 @@ paths:
             application/json:
               schema:
                 type: string
+  /users/user/changeEmail:
+    post:
+      operationId: changeUserEmail
+      requestBody:
+        description: Email
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailObject'
+      responses:
+        200:
+          description: "Return user object with changed email"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        409:
+          description: "Conflict of users"
+          content:
+            application/json:
+              schema:
+                type: string
   /users/user/changePassword:
     post:
       operationId: changePassword
@@ -305,6 +328,16 @@ components:
         oldusername:
           type: string
         newusername:
+          type: string
+    EmailObject:
+      type: object
+      required:
+        - oldemail
+        - newemail
+      properties:
+        oldemail:
+          type: string
+        newemail:
           type: string
     PasswordObject:
       type: object

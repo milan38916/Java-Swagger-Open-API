@@ -23,6 +23,11 @@ public class UsersActions {
         return usersRepository.getUserByUsername(username);
     }
 
+    public User getUserByEmail(String email) {
+        return usersRepository.getUserByEmail(email);
+    }
+
+
     public Optional<User> getUserByID(String uid) {
         return usersRepository.findById(uid);
     }
