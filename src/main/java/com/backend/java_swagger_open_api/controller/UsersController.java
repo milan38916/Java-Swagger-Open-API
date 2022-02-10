@@ -103,7 +103,7 @@ public class UsersController implements UsersApi {
             return new ResponseEntity<>("User with name " + newUser.getUsername() + " is already in system. Use other name.", HttpStatus.CONFLICT);
         } else {
             usersActions.addUser(user);
-            return new ResponseEntity<>("User with name " + newUser.getUsername() + " was added successfully", HttpStatus.OK);
+            return new ResponseEntity<>("User with name " + newUser.getUsername() + " was added successfully", HttpStatus.CREATED);
         }
     }
 
