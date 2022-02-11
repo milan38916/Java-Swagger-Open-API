@@ -101,6 +101,8 @@ public class UsersController implements UsersApi {
         User user = new User(newUser.getId(), newUser.getUsername(), newUser.getPassword(), null, newUser.getEmail());
         if (usersActions.getUser(newUser.getUsername()) != null) {
             return new ResponseEntity<>("User with name " + newUser.getUsername() + " is already in system. Use other name.", HttpStatus.CONFLICT);
+        } else if (usersActions.getUserByEmail(newUser.getEmail()) != null) {
+            return new ResponseEntity<>("User with email " + newUser.getEmail() + " is already in system. Use other name.", HttpStatus.CONFLICT);
         } else {
             usersActions.addUser(user);
             return new ResponseEntity<>("User with name " + newUser.getUsername() + " was added successfully", HttpStatus.CREATED);
@@ -123,9 +125,9 @@ public class UsersController implements UsersApi {
     @Override
     public ResponseEntity<User> changeUserEmail(EmailObject body) {
         User user = usersActions.getUserByEmail(body.getOldemail());
-        System.out.println(user);
-        if (user != null && user.getEmail().equals(body.getNewemail())) {
-            return new ResponseEntity<>(user, HttpStatus.CONFLICT);
+        System.out.println(body.getNewemail() + " " + body.getOldemail());
+        if (user.getEmail().equals(body.getNewemail()) || usersActions.getUserByEmail(body.getNewemail()) != null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             user.setEmail(body.getNewemail());
             usersActions.addUser(user);
@@ -137,7 +139,7 @@ public class UsersController implements UsersApi {
     public ResponseEntity<User> changeUserName(UsernameObject body) {
         User user = usersActions.getUser(body.getOldusername());
         if (usersActions.getUser(body.getNewusername()) != null && usersActions.getUser(body.getNewusername()).getUsername().equals(body.getNewusername())) {
-            return new ResponseEntity<>(user, HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             user.setUsername(body.getNewusername());
             usersActions.addUser(user);

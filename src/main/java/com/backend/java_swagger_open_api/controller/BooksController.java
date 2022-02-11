@@ -30,7 +30,8 @@ public class BooksController implements BooksApi {
     }
 
     @Override
-    public ResponseEntity<List<Book>> getAllBooks() {
+    public ResponseEntity<List<Book>> getAllBooks() throws InterruptedException {
+        Thread.sleep(2 * 1000);
         return new ResponseEntity<>(booksActionsMongoDB.getAllBooks(), HttpStatus.OK);
     }
 
