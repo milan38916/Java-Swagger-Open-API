@@ -29,7 +29,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Book'
+                  $ref: '#/components/schemas/CompleteBook'
   /books/{title}:
     get:
       operationId: getOneBookByTitle
@@ -44,7 +44,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Book'
+                  $ref: '#/components/schemas/CompleteBook'
   /books/addNewBook:
     post:
       operationId: addOneBook
@@ -277,20 +277,48 @@ components:
     SwaggerBook:
       type: object
       required:
-        - id
+        - _id
+        - authors
+        - isbn
+        - pageCount
+        - publishedDate
+        - categories
+        - longDescription
+        - shortDescription
+        - status
+        - thumbnailUrl
         - title
-        - author
         - year
         - price
       properties:
         _id:
+          type: string
+        authors:
+          type: array
+          items:
+            type: string
+        isbn:
+          type: string
+        pageCount:
           type: number
+        publishedDate:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        longDescription:
+          type: string
+        shortDescription:
+          type: string
+        status:
+          type: string
+        thumbnailUrl:
+          type: string
         title:
           type: string
-        author:
-          type: string
         year:
-          type: number
+          type: string
         price:
           type: number
     SwaggerUser:
